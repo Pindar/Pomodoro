@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ImageFader" default="dist" basedir=".">
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="html" location="html"/>
+  <property name="lib" location="lib"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+  <property name="test-dist" location="test-dist"/>
+  <property name="filename-min" value="imagefader.min.js"/>
+  <property name="jquery-filename" value="jquery-1.6.4.min.js"/>
+  <property name="VERSION" value="0.9"/>
+  <property name="files_list" value="task.js"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+  
+  <target name="compile" depends="init, minificationDist" description="compile the source">
+    <!-- Compile the javaScript code from ${src} into ${build} -->
+  </target>
+  
+  <target name="dist" depends="compile" description="generate the distribution">
+    <mkdir dir="${dist}"/>
+    <mkdir dir="${dist}/js"/>
+    <mkdir dir="${dist}/css"/>
+    <copy file="${build}/${filename-min}" tofile="${dist}/js/${filename-min}"/>
+    <copy file="${lib}/${jquery-filename}" tofile="${dist}/js/${jquery-filename}"/>
+    <copy todir="${dist}/images">
+      <fileset dir="${html}/images"/>
+    </copy>
+    <copy file="${html}/index.html" tofile="${dist}/index.html" />
+    <copy file="css/common.css" tofile="${dist}/css/common.css" />
+  </target>
+  
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+  
+  <target name="js.concatenateDist">
+    <concat destfile="${build}/concatenated.js" fixlastline="yes">
+      <filelist dir="${src}/" files="${files_list}"/>
+    </concat>
+  </target>
+  
+  <target name="minificationDist" depends="js.concatenateDist">
+    <java jar="tools/yuicompressor-2.4.2.jar" failonerror="true" fork="true" output="${build}/${filename-min}">
+      <arg value="${build}/concatenated.js"/>
+    </java>
+  </target>
+</project>

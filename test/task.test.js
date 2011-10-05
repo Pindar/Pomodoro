@@ -53,7 +53,7 @@
            }
        }));
        
-       TestCase("initializing", sinon.testCase({
+       TestCase("time tracking", sinon.testCase({
            setUp: function () {
                testTask = po.task("example");
                this.clock = sinon.useFakeTimers(time, Date);
@@ -63,13 +63,58 @@
                this.clock.restore();
            },
 
+           startAndStop: function (timeTick) {
+               testTask.start();
+                  this.clock.tick(timeTick);
+                  testTask.stop();
+           },
+
            "test start stop task":
            function () {
+               this.startAndStop(1500);
+               
+               assertEquals(1500, testTask.sumOfEffortTime());
+           },
+           
+           "test start stop sequence":
+           function () {
+               var time1 = 1500,
+                   time2 = 200;
+
+               this.startAndStop(time1);
+               this.startAndStop(time2);
+               
+               assertEquals(time1 + time2, testTask.sumOfEffortTime());
+           },
+           
+           "test starts and stops two times and gives only effort of current call":
+           function () {
+               var time1 = 1500,
+                   time2 = 200;
+                   
+               this.startAndStop(time1);
+               this.startAndStop(time2);
+               
+               assertEquals(time2, testTask.sumCurrentEffortTime());
+           },
+           
+           "test calls start two times":
+           function () {
                testTask.start();
-               this.clock.tick(1500);
+               assertException(function(){
+                    testTask.start();
+                }, "Error");
+           },
+           
+           "test calls stop two times":
+           function () {
+               testTask.start();
                testTask.stop();
                
-               assertEquals(time + 1500, testTask.sumOfEffortTime());
+               assertException(function () {
+                   testTask.stop();
+               }, "Error");
            }
+           
        }));
 }());

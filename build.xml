@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ImageFader" default="dist" basedir=".">
+<project name="pomodoro" default="dist" basedir=".">
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="html" location="html"/>
@@ -7,10 +7,15 @@
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
   <property name="test-dist" location="test-dist"/>
-  <property name="filename-min" value="imagefader.min.js"/>
+  <property name="filename-min" value="pomodoro.min.js"/>
   <property name="jquery-filename" value="jquery-1.6.4.min.js"/>
   <property name="VERSION" value="0.9"/>
-  <property name="files_list" value="task.js"/>
+  <property name="files_list" value="enhance_standard.js,
+    namespace.js,
+    task.js,
+    daycount.js,
+    daycount_controller.js,
+    init.js"/>
   
   <target name="init">
     <!-- Create the time stamp -->
@@ -27,7 +32,7 @@
     <mkdir dir="${dist}"/>
     <mkdir dir="${dist}/js"/>
     <mkdir dir="${dist}/css"/>
-    <copy file="${build}/${filename-min}" tofile="${dist}/js/${filename-min}"/>
+    <copy file="${build}/concatenated.js" tofile="${dist}/js/${filename-min}"/>
     <copy file="${lib}/${jquery-filename}" tofile="${dist}/js/${jquery-filename}"/>
     <copy todir="${dist}/images">
       <fileset dir="${html}/images"/>

@@ -1,5 +1,4 @@
-var po = po || {};
-
+po.namespace('po');
 
 po.task = function (description) {
     
@@ -43,6 +42,9 @@ po.task = function (description) {
     }
     
     function calculateTime(elem) {
+        if (elem.stop === null || elem. stop === undefined) {
+            return Date.now() - elem.start;
+        }
         return elem.stop - elem.start;
     }
     
@@ -55,13 +57,22 @@ po.task = function (description) {
     }
     
     function sumCurrentEffortTime() {
+        if (currentStartStop.start === undefined && 
+                currentStartStop.stop === undefined) {
+            throw new Error("Please start the task.");
+        }
         return calculateTime(currentStartStop);
+    }
+    
+    function getType() {
+        return "task";
     }
     
     return {
         getSetDescription: getSetDescription,
         start: start,
         stop: stop,
+        getType: getType,
         sumCurrentEffortTime: sumCurrentEffortTime,
         sumOfEffortTime: sumOfEffortTime
     };

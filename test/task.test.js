@@ -98,6 +98,21 @@
                assertEquals(time2, testTask.sumCurrentEffortTime());
            },
            
+           "test gets current effort without stop":
+           function () {
+               testTask.start();
+               this.clock.tick(1001);
+               
+               assertEquals(1001, testTask.sumCurrentEffortTime());
+           },
+           
+           "test calls sumCurrentEffortTime without start":
+           function () {
+               assertException(function () {
+                   testTask.sumCurrentEffortTime();
+               }, "Error");
+           },
+           
            "test calls start two times":
            function () {
                testTask.start();

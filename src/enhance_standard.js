@@ -24,5 +24,34 @@
               
             return curr;  
       };
-    }        
+    }
+    
+    /*
+     * create function
+     */
+    if (!Object.create) {
+      (function () {
+          function F() {}
+
+          Object.create = function (object) {
+              F.prototype = object;
+              return new F();
+          };
+      }());
+    }
+
+    /*
+     * bind function
+     */
+    if (typeof Function.prototype.bind === "undefined") {
+        Function.prototype.bind = function (thisArg) {
+            var fn = this,
+            slice = Array.prototype.slice,
+            args = slice.call(arguments, 1);
+            return function () {
+                return fn.apply(thisArg, args.concat(slice.call(arguments)));
+            };
+        };
+    }
+
 })();

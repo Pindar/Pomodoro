@@ -6,7 +6,7 @@ po.namespace = function (ns_string) {
     parent = po,
     i;
 //  strip redundant leading global
-    if (parts[0] === "WISI") {
+    if (parts[0] === "po") {
         parts = parts.slice(1);
     }
     for (i = 0; i < parts.length; i += 1) {

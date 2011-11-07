@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- manifest="offline.manifest" -->
 <html>
 <head>
 <title>Pomodoro</title>
@@ -9,7 +10,7 @@
 <body>
 
 <div id="po-wrapper">
-  <div id="po-main">
+  <nav id="po-main">
     <ul class="po-main-button">
       <li>
         <input type="button" name="play" id="play" value="&gt;" 
@@ -22,12 +23,12 @@
           title="add new task" />
       </li>
     </ul>
-  </div>
+  </nav>
   
   <div id="time">
     <ul>
-      <li class="pomodoro" title="actual pomodoro"></li>
-      <li class="day" title="day count">7,5 h</li>
+      <li class="pomodoro" title="actual pomodoro">25 min</li>
+      <li class="day" title="day count">0 min</li>
     </ul>
   </div>
   
@@ -49,7 +50,7 @@
 
 </div>
 
-<script src="js/jquery-1.6.4.min.js"></script>
+<script src="js/jquery-1.7.min.js"></script>
 <script src="js/pomodoro.min.js"></script>
 </body>
 </html>

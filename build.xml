@@ -8,10 +8,11 @@
   <property name="dist" location="dist"/>
   <property name="test-dist" location="test-dist"/>
   <property name="filename-min" value="pomodoro.min.js"/>
-  <property name="jquery-filename" value="jquery-1.6.4.min.js"/>
+  <property name="jquery-filename" value="jquery-1.7.min.js"/>
   <property name="VERSION" value="0.9"/>
   <property name="files_list" value="enhance_standard.js,
     namespace.js,
+    data_service.js,
     task.js,
     daycount.js,
     daycount_controller.js,
@@ -39,6 +40,7 @@
     </copy>
     <copy file="${html}/index.html" tofile="${dist}/index.html" />
     <copy file="css/common.css" tofile="${dist}/css/common.css" />
+    <copy file="${html}/offline.manifest" tofile="${dist}/offline.manifest" />
   </target>
   
   <target name="clean" description="clean up">

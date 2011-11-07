@@ -1,11 +1,15 @@
 po.namespace('po');
 
-po.dayCount = function () {
+po.dayCount = function (dataService) {
     
     var daysTask = {};
     
     function init() {
-        daysTask[(new Date()).toDateString()] = po.task();
+        daysTask = dataService.restoreListOfTasks();
+        daysTask[(new Date()).toDateString()] = daysTask[(new Date()).toDateString()]
+            || po.task();
+            
+        dataService.saveListOfTasksForDays(daysTask);
         return this;
     }
     
@@ -15,14 +19,20 @@ po.dayCount = function () {
     
     function startTask() {
         getTask().start();
+        dataService.saveListOfTasksForDays(daysTask);
     }
     
     function stopTask() {
         getTask().stop();
+        dataService.saveListOfTasksForDays(daysTask);
     }
     
     function getDaysEffort() {
         return getTask().sumOfEffortTime();
+    }
+    
+    function toJSON() {
+        return JSON.stringify(daysTask);
     }
     
     return ({

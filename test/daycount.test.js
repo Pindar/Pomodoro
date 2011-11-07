@@ -2,15 +2,19 @@
     
     var dayCount,
         time = new Date(2011,5,24,0,0,0),
-        ONE_DAY = 1 * 1000 * 60 * 60 * 24;
+        ONE_DAY = 1 * 1000 * 60 * 60 * 24,
+        dataServiceStub;
     
     function setUp() {
-        dayCount = po.dayCount();
+        var dataService = po.dataService(),
+            dataServiceStub = sinon.stub(dataService, 'restoreListOfTasks').returns({});
+        dayCount = po.dayCount(dataService);
         this.clock = sinon.useFakeTimers(time.getTime());
     }
     
     function tearDown() {
         this.clock.restore();
+        dataServiceStub.restoreListOfTasks.restore();
     }
     
     
@@ -92,6 +96,28 @@
             assertEquals(330, dayCount.getDaysEffort());
         }
         
+    }));
+    
+    TestCase("integrated with data service", sinon.testCase({
+        
+        "test checks whether restoreListOfTasks is called":
+        function () {
+            // given
+            var dataService = po.dataService(), 
+                dataServiceMock = sinon.mock(dataService);
+                
+            // dataServiceMock.expects("restoreListOfTasks")
+            dataServiceMock.expects("restoreListOfTasks").once().returns({});
+            
+            // when
+            assertObject(po.dayCount(dataService));
+            
+            // then
+            dataServiceMock.verify();
+
+            // clean up
+            dataServiceMock.restore();
+        }
     }));
     
     

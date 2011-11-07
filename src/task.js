@@ -3,7 +3,6 @@ po.namespace('po');
 po.task = function (description) {
     
     var localStorage = window.localStorage,
-        id = localStorage.getItem("task:id"),
         timePoints = [],
         currentStartStop = {};
         
@@ -18,6 +17,15 @@ po.task = function (description) {
         }
         
         return description;
+    }
+    
+    function parse(obj) {
+        obj = JSON.parse(obj);
+        timePoints = obj.timePoints || [];
+        description = obj.description || "";
+        currentStartStop = obj.currentStartStop || {};
+        
+        return this;
     }
     
     function start() {
@@ -68,12 +76,27 @@ po.task = function (description) {
         return "task";
     }
     
+    function save() {
+        localStorage.setItem("key", JSON.stringify(this));
+    }
+    
+    function toJSON() {
+        return JSON.stringify({
+            "timePoints": timePoints, 
+            "description": description,
+            "currentStartStop": currentStartStop
+        });
+    }
+    
     return {
         getSetDescription: getSetDescription,
         start: start,
         stop: stop,
         getType: getType,
         sumCurrentEffortTime: sumCurrentEffortTime,
-        sumOfEffortTime: sumOfEffortTime
+        sumOfEffortTime: sumOfEffortTime,
+        save: save,
+        parse: parse,
+        toJSON: toJSON
     };
 };

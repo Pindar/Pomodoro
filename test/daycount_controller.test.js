@@ -4,7 +4,9 @@
         jQueryPlay = {},
         jQueryStop = {},
         dayCountMock = {},
-        jQueryTimer = {};
+        jQueryTimer = {},
+        dataService = po.dataService(),
+        dataServiceStub = sinon.stub(dataService, "restoreListOfTasks");
 
     function setUp() {
         /*:DOC += <input type="text" id="play" name="play" />*/
@@ -12,11 +14,13 @@
 
         jQueryPlay = jQuery('#play');
         jQueryStop = jQuery('#stop');
+        
+        dataServiceStub.returns({});
 
         dayCountController = po.dayCountController({"jQuery": jQuery, 
                 "playTarget": jQueryPlay, 
                 "stopTarget": jQueryStop,
-                "dayCount": po.dayCount(),
+                "dayCount": po.dayCount(dataService),
                 "dayTimerTarget": $()
             });
     }
@@ -63,10 +67,12 @@
     
     TestCase("click on buttons", sinon.testCase({
         setUp: function () {
-            var dayCount = po.dayCount();
+            var dayCount = po.dayCount(dataService);
             setUp();
             this.clock = sinon.useFakeTimers();
             dayCountMock = sinon.mock(dayCount);
+
+            dataServiceStub.returns({});
 
             dayCountController = po.dayCountController({"jQuery": jQuery, 
                     "playTarget": jQueryPlay, 
@@ -136,12 +142,15 @@
         
         "test clicks play and refresh is called every minute":
         function () {
+            // given
             var daycountControllerMock = sinon.mock(dayCountController);
             daycountControllerMock.expects("refresh").exactly(6);
 
+            // when
             jQueryPlay.trigger("click");
             this.clock.tick(1000 * 60 * 5);
             
+            // then
             daycountControllerMock.verify();
         },
         
@@ -162,11 +171,13 @@
     TestCase("refresh timer", sinon.testCase({
         setUp: function () {
             /*:DOC += <div id="time"><ul><li class="pomodoro" title="actual pomodoro">18 Min</li></ul></div>*/
-            var dayCount = po.dayCount();
-            jQueryTimer = $("#time > ul > li:first-child");
+            var dayCount = po.dayCount(dataService);
+            jQueryTimer = $("#time > ul > li:last-child");
             dayCountMock = sinon.mock(dayCount);
             sinon.spy(jQueryTimer, "text");
             setUp();
+            
+            dataServiceStub.returns({});
             
             dayCountController = po.dayCountController({"jQuery": jQuery, 
                     "playTarget": jQueryPlay, 

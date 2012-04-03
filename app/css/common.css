@@ -1,0 +1,145 @@
+body {
+    background-color: #2d2d2d;
+    font-family: Helvetica;
+    font-size: 12pt;
+    color: #222222;
+}
+
+div#po-wrapper {
+    position: relative;
+    margin: 0px auto 0px auto;
+    padding: 10px 10px 10px 10px;
+    width: 600px;
+    background-color: #fff;
+}
+
+.invisible {
+    display: none;
+}
+
+/* main */
+
+#po-main {
+    margin: 0px auto 0px auto;
+    padding: 0px 0px 0px 0px;
+    width: 62px;
+    display: block;
+}
+
+.po-main-button {
+    list-style: none;
+    display: inline-block;
+}
+
+ul.po-main-button {
+    width: 62px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px none;
+}
+
+.po-main-button li {
+    float: left;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border: 0 none;
+}
+
+.po-main-button li input {
+    width: 30px;
+    height: 30px;
+    line-height: 17px;
+    padding: 5px 5px 5px 5px;
+    margin: 0px 1px 0px 0px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    color: #666666;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.po-main-button li input:hover {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #C6C6C6;
+    color: #333333;
+}
+
+.po-main-button:after {
+    clear: both;
+}
+/* /main */
+
+/* time */
+#time {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0px 5px 0px 0px;
+    font-size: 10pt;
+}
+
+#time ul {
+    list-style: none;
+}
+
+#time ul li {
+    padding: 2px 0px 2px 0px;
+}
+
+/* /time */
+
+/* add task */
+#po-add-task-box {
+    margin: 10px auto 10px auto;
+    padding: 0px 0px 0px 0px;
+    border: 0px none;
+    width: 600px;
+    vertical-align: middle;
+    text-align: center;
+    display: none;
+}
+
+#po-add-task {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #666666;
+    padding: 2px 2px 2px 5px;
+    width: 300px;
+}
+
+#po-add-task:hover {
+    border: 1px solid #C6C6C6;
+    color: #666666;
+}
+
+#po-add-task:focus {
+    border: 1px solid #4D90FE;
+    color: #222222;
+}
+
+/* /add task */
+
+/* table */
+#po-tasks {
+    margin: 0px auto 0px auto;
+    padding: 0px 0px 0px 0px;
+    width: 600px;
+    border: 0px none;
+}
+
+#po-tasks thead {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+#po-tasks td, #po-tasks th {
+    padding: 2px 2px 2px 2px;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
+}
+
+#po-tasks > thead > tr > th:first-child, #po-tasks > tbody > tr > td:first-child {
+    width: 400px;
+    border-bottom: 1px #222222 solid;
+}
+/* /table */

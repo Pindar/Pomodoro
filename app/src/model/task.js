@@ -1,15 +1,11 @@
-if (typeof define !== 'function') { var define = require('amdefine')(module); }
-define(['order!underscore', 'order!jquery', 'order!backbone'], function(_, $, Backbone) {
+define(['order!underscore', 'order!jquery', 'order!backbone', 'libs/backbone-localstorage'], function(_, $, Backbone) {
 
-
-  var TaskModel = Backbone.Model.extend({
+  var Task = Backbone.Model.extend({
   
     // Default attributes 
     defaults: {
-      content: "hello world"
     },
   
-    // A dummy initialization method
     initialize: function() {
     },
   
@@ -17,8 +13,6 @@ define(['order!underscore', 'order!jquery', 'order!backbone'], function(_, $, Ba
     }
   
   });
-  return TaskModel;
-  
-  // return {foo: "foo"}
 
+  return Task;
 });

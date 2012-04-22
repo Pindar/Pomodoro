@@ -7,13 +7,12 @@
         'backbone':         'libs/backbone.amd',
         'underscore':       'libs/underscore.amd',
         'jquery':           'libs/jquery',
-        'json2':            'libs/json2',
-        'sinon':            'libs/sinon.js'
+        'json2':            'libs/json2'
     },
     optimize: "uglify",
     modules: [
         {
-            name: "src/model/task"
+            name: "src/main"
         }
     ]
 

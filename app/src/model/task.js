@@ -1,15 +1,14 @@
-define(['order!underscore', 'order!jquery', 'order!backbone', 'libs/backbone-localstorage'], function(_, $, Backbone) {
+define(['order!backbone', 'order!libs/backbone-localstorage'], function(Backbone, Store) {
 
   var Task = Backbone.Model.extend({
-  
-    // Default attributes 
-    defaults: {
-    },
-  
+
+    localStorage: new Store('task'),
     initialize: function() {
     },
-  
-    clear: function() {
+    validate: function(attr) {
+        if(!attr.name) {
+            return "cannot have an empty name.";
+        }
     }
   
   });

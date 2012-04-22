@@ -1,0 +1,1 @@
+define(['order!underscore', 'order!jquery', 'order!backbone', 'order!libs/backbone-localstorage', 'src/model/task', 'src/model/tasks'])
